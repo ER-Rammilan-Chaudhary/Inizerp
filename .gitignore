@@ -1,0 +1,35 @@
+# dependencies
+node_modules/
+.pnpm-store/
+.yarn/
+
+# environment files
+.env
+.env.local
+.env.production
+
+# Next.js
+.next/
+out/
+
+# Build
+dist/
+build/
+
+# Logs
+*.log
+
+# Prisma
+backend/prisma/*.db
+backend/prisma/*.db-journal
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Uploads
+uploads/
