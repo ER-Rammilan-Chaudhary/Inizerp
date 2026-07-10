@@ -1,0 +1,13 @@
+export const FEATURES = [
+  "ATTENDANCE",
+  "FEES",
+  "TRANSPORT",
+  "LIBRARY",
+  "EXAMS",
+  "HOMEWORK",
+  "NOTIFICATIONS",
+  "ONLINE_CLASSES",
+  "STAFF_MANAGEMENT",
+  "ADMISSIONS",
+  "MOBILE_APP",
+] as const;
