@@ -1,13 +1,16 @@
-import DashboardLayout from "@/components/dashboard/layout/DashboardLayout";
+// app/(dashboard)/super-admin/layout.tsx
 
-export default function Layout({
-  children,
+import ProtectedRoute from "@/features/auth/ProtectedRoute";
+import DashboardLayout from "@/components/layout/DashboardLayout";
+
+export default function SuperAdminLayout({
+    children,
 }: {
-  children: React.ReactNode;
+    children: React.ReactNode;
 }) {
-  return (
-    <DashboardLayout>
-      {children}
-    </DashboardLayout>
-  );
+    return (
+        <ProtectedRoute allowedRoles={["SUPER_ADMIN"]}>
+            <DashboardLayout>{children}</DashboardLayout>
+        </ProtectedRoute>
+    );
 }

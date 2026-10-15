@@ -1,7 +1,10 @@
 import app from "./app";
+import { env } from "./config/env";
 
-const PORT = 5000;
+const server = app.listen(env.PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${env.PORT}`);
+});
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+server.on("error", (err) => {
+  console.error("Server error:", err);
 });

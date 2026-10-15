@@ -1,4 +1,5 @@
+import NotificationManagementPage from "@/features/super-admin/notifications/pages/NotificationManagementPage";
 
-export default function NotificationPage() {
-return <h1>Notification</h1>;
+export default function Page() {
+    return <NotificationManagementPage />;
 }

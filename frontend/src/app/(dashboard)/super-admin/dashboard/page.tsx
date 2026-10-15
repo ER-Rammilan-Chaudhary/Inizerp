@@ -1,128 +1,81 @@
 "use client";
 
-import StatsCard from "@/components/dashboard/cards/StatsCard";
-import RevenueChart from "@/components/dashboard/charts/RevenueChart";
-import RecentSchoolsTable from "@/components/dashboard/tables/RecentSchoolsTable";
-import RecentUsersTable from "@/components/dashboard/tables/RecentUsersTable";
-import { School, Users, IndianRupee, CreditCard, }from "lucide-react";
+import RecentSchools from "@/features/super-admin/dashboard/components/RecentSchools";
+import StatsGrid from "@/features/super-admin/dashboard/components/StatsGrid";
+import RevenueChart from "@/features/super-admin/dashboard/components/RevenueChart";
+import PlatformGrowth from "@/features/super-admin/dashboard/components/PlatformGrowth";
+import Subscription from "@/features/super-admin/dashboard/components/Subscription";
+import RecentNotifications from "@/features/super-admin/dashboard/components/RecentNotifications";
+import SummaryCards from "@/features/super-admin/dashboard/components/SummaryCards";
+import Loader from "@/components/common/Loader";
+import ErrorPage from "@/components/common/error/ErrorPage";
+
+import { useDashboard } from "@/features/super-admin/dashboard/hooks/useDashboard";
+import { useRecentSchools } from "@/features/super-admin/dashboard/hooks/useRecentSchools";
+import { useSubscriptionOverview } from "@/features/super-admin/dashboard/hooks/useSubscriptionOverview";
+import { useRevenue } from "@/features/super-admin/dashboard/hooks/useRevenue";
+import { useNotifications } from "@/features/super-admin/dashboard/hooks/useNotifications";
+import { usePlatformGrowth } from "@/features/super-admin/dashboard/hooks/usePlatformGrowth";
+
 
 export default function DashboardPage() {
+
+  const { data, isLoading, isError, error } = useDashboard();
+  const { data: schools } = useRecentSchools();
+  const { data: subscriptions } = useSubscriptionOverview();
+  const { data: revenue } = useRevenue();
+  const { data: notifications } = useNotifications();
+  const { data: growth } = usePlatformGrowth();
+
+
+  if (isLoading) {
+    return (
+      <Loader text="Loading dashboard..." />
+    );
+  }
+
+
+  if (isError || !data) {
+    return (
+      <ErrorPage
+        title="Unable to load subscriptions"
+        message={error instanceof Error ? error.message : "Please try again in a moment."}
+        onRetry={() => window.location.reload()}
+      />
+    );
+  }
+
+
   return (
-    <div className="space-y-8">
-      <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
 
-        <StatsCard
-          title="Schools"
-          value="128"
-          growth="+12% This Month"
-          icon={School}
-          color="bg-blue-600"
-        />
-
-        <StatsCard
-          title="Users"
-          value="4,250"
-          growth="+8% This Month"
-          icon={Users}
-          color="bg-green-600"
-        />
-
-        <StatsCard
-          title="Revenue"
-          value="₹8.5L"
-          growth="+18% This Month"
-          icon={IndianRupee}
-          color="bg-orange-500"
-        />
-
-        <StatsCard
-          title="Subscriptions"
-          value="98"
-          growth="95 Active"
-          icon={CreditCard}
-          color="bg-purple-600"
-        />
-
+    <div className="mx-auto w-full space-y-6 pb-10">
+      <StatsGrid data={data} />
+      <PlatformGrowth
+        schools={growth?.schools ?? []}
+        students={growth?.students ?? []}
+        teachers={growth?.teachers ?? []}
+      />
+      <div className="grid gap-6 lg:grid-cols-2">
+        <RevenueChart data={revenue} />
+        <Subscription data={subscriptions} />
       </div>
 
-           {/* Charts */}
-
-      <div className="grid gap-6 xl:grid-cols-3">
-
-        <div className="xl:col-span-2">
-
-          <RevenueChart />
-
-        </div>
-
-        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-
-          <h2 className="text-xl font-bold">
-            Quick Stats
-          </h2>
-
-          <div className="mt-6 space-y-6">
-
-            <div>
-
-              <p className="text-sm text-muted-foreground">
-                Active Schools
-              </p>
-
-              <h3 className="mt-1 text-3xl font-bold">
-                128
-              </h3>
-
-            </div>
-
-            <div>
-
-              <p className="text-sm text-muted-foreground">
-                New Users
-              </p>
-
-              <h3 className="mt-1 text-3xl font-bold">
-                214
-              </h3>
-
-            </div>
-
-            <div>
-
-              <p className="text-sm text-muted-foreground">
-                Revenue
-              </p>
-
-              <h3 className="mt-1 text-3xl font-bold">
-                ₹8.5L
-              </h3>
-
-            </div>
-
-            <div>
-
-              <p className="text-sm text-muted-foreground">
-                Active Plans
-              </p>
-
-              <h3 className="mt-1 text-3xl font-bold">
-                95
-              </h3>
-
-            </div>
-
-          </div>
-
-        </div>
-
+      <div className="grid gap-6 lg:grid-cols-2">
+        <RecentNotifications
+          data={notifications ?? []}
+        />
+        <RecentSchools
+          data={schools}
+        />
       </div>
-
-{/* RecentSchoolsTable */}
-      <RecentSchoolsTable />
-      
-      {/*   <RecentUsersTable /> */}
-        <RecentUsersTable />
-
+      <SummaryCards
+        users={data.users}
+        plans={data.plans.total}
+        notifications={data.notifications.unread}
+        schools={data.schools.total}
+      />
     </div>
+
   );
+
 }

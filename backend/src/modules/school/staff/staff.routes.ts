@@ -1,0 +1,34 @@
+import { Router } from "express";
+
+import { authenticate } from "../../../middleware/auth.middleware";
+import { tenantMiddleware } from "../../../middleware/tenant.middleware";
+import { authorize } from "../../../middleware/rbac.middleware";
+import { validate } from "../../../middleware/validate.middleware";
+
+import {
+  createStaffController,
+  deleteStaffController,
+  getStaffByIdController,
+  getStaffController,
+  updateStaffController,
+} from "./staff.controller";
+
+import { createStaffSchema, updateStaffSchema } from "./staff.schema";
+
+const router = Router();
+
+router.use(authenticate);
+router.use(tenantMiddleware);
+router.use(authorize("SCHOOL_ADMIN"));
+
+router.get("/", getStaffController);
+
+router.get("/:id", getStaffByIdController);
+
+router.post("/", validate(createStaffSchema), createStaffController);
+
+router.patch("/:id", validate(updateStaffSchema), updateStaffController);
+
+router.delete("/:id", deleteStaffController);
+
+export default router;

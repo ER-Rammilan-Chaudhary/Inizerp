@@ -1,17 +1,65 @@
+// {
+//   "compilerOptions": {
+//     "target": "ES2022",
+//     "module": "Node16",
+
+//     "rootDir": "src",
+//     "outDir": "dist",
+
+//     "strict": true,
+//     "esModuleInterop": true,
+//     "allowSyntheticDefaultImports": true,
+
+//     "moduleResolution": "node16",
+//     "resolveJsonModule": true,
+
+//     "typeRoots": ["./node_modules/@types", "./src/@types"],
+
+//     "sourceMap": true,
+//     "noEmitOnError": true,
+
+//     "forceConsistentCasingInFileNames": true,
+//     "skipLibCheck": true
+//   },
+
+//   "include": ["src/**/*"],
+
+//   "exclude": ["node_modules", "dist"]
+// }
+
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "CommonJS",
+    "target": "ES2022",
+
+    "module": "Node16",
+
     "rootDir": "src",
     "outDir": "dist",
 
     "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "types": ["node"],
 
-    "sourceMap": true
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
+    "moduleResolution": "node16",
+
+    "resolveJsonModule": true,
+
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    "typeRoots": ["./node_modules/@types", "./src/@types"],
+
+    "sourceMap": true,
+
+    "noEmitOnError": true,
+
+    "forceConsistentCasingInFileNames": true,
+
+    "skipLibCheck": true
   },
-  "include": ["src"],
+
+  "include": ["src/**/*"],
+
   "exclude": ["node_modules", "dist"]
 }

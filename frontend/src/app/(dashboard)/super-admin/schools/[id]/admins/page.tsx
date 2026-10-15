@@ -1,37 +1,72 @@
-import Link from "next/link";
+"use client";
 
-const admins = [
-  { name: "Aisha Bello", role: "School Admin", status: "Active" },
-  { name: "Musa Yusuf", role: "Finance Admin", status: "Pending" },
-  { name: "Grace Thomas", role: "Operations Admin", status: "Active" },
-];
+import { use } from "react";
+import { notFound } from "next/navigation";
+import { Skeleton } from "@/components/ui/skeleton";
+import SchoolHeader from "@/features/super-admin/schools/components/SchoolHeader";
+import { AdminInfoCard } from "@/features/super-admin/schools/components/admin/AdminInfoCard";
+import { useSchool } from "@/features/super-admin/schools/hooks/useSchool";
+import { useSchoolAdmin } from "@/features/super-admin/schools/hooks/useSchoolAdmin";
 
-export default async function SchoolAdminsPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+interface PageProps {
+    params: Promise<{
+        id: string;
+    }>;
+}
 
-  return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950">
-        <div>
-          <p className="text-sm font-medium text-slate-500">School admins</p>
-          <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-100">Admins for school #{id}</h1>
-        </div>
-        <Link href={`/super-admin/schools/${id}`} className="rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 dark:border-slate-700 dark:text-slate-300">Back</Link>
-      </div>
+export default function SchoolAdminPage({
+    params,
+}: PageProps) {
+    const { id: schoolId } = use(params);
 
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950">
-        <div className="space-y-4">
-          {admins.map((admin) => (
-            <div key={admin.name} className="flex items-center justify-between rounded-xl border border-slate-200 p-4 dark:border-slate-700">
-              <div>
-                <h2 className="font-medium text-slate-900 dark:text-slate-100">{admin.name}</h2>
-                <p className="text-sm text-slate-500">{admin.role}</p>
-              </div>
-              <span className="rounded-full bg-slate-100 px-3 py-1 text-sm text-slate-700 dark:bg-slate-800 dark:text-slate-300">{admin.status}</span>
+    const {
+        data: school,
+        isLoading: schoolLoading,
+        isError: schoolError,
+    } = useSchool(schoolId);
+
+    const {
+        data: admin,
+        isLoading: adminLoading,
+        isError: adminError,
+    } = useSchoolAdmin(schoolId);
+
+    if (schoolLoading || adminLoading) {
+        return (
+            <div className="container mx-auto space-y-6 p-6">
+
+                <Skeleton className="h-10 w-48" />
+
+                <Skeleton className="h-24 w-full rounded-xl" />
+
+                <Skeleton className="h-[420px] w-full rounded-xl" />
+
             </div>
-          ))}
+        );
+    }
+
+    if (schoolError || adminError) {
+        return (
+            <div className="container mx-auto p-6">
+                <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-600">
+                    Failed to load school administrator.
+                </div>
+            </div>
+        );
+    }
+
+    if (!school || !admin) {
+        notFound();
+    }
+
+    return (
+        <div className="container mx-auto space-y-6">
+            <SchoolHeader school={school} />
+            <AdminInfoCard
+                schoolId={schoolId}
+                admin={admin}
+            />
+
         </div>
-      </div>
-    </div>
-  );
+    );
 }

@@ -1,0 +1,3 @@
+export const RECENT_SCHOOLS_LIMIT = 10;
+export const RECENT_NOTIFICATIONS_LIMIT = 10;
+export const ANALYTICS_LIMIT = 10;

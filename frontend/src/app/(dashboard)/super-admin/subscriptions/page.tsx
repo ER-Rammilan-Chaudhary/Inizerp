@@ -1,3 +1,8 @@
-export default function SubscriptionsPage() {
-  return <h1>Subscriptions</h1>;
-}
+import SubscriptionPage from "@/features/super-admin/subscriptions/pages/SubscriptionPage";
+
+export default function Page() {
+  return (
+    <SubscriptionPage />
+  )
+
+} 

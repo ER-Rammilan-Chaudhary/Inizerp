@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import ThemeToggle from "@/components/providers/ThemeToggle";
+import ThemeToggle from "@/components/layout/ThemeToggle";
 
 export default function Home() {
   return (
@@ -10,7 +10,7 @@ export default function Home() {
         <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-secondary/10 blur-3xl" />
       </div>
 
-   <header className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/70 backdrop-blur-2xl">
+      <header className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/70 backdrop-blur-2xl">
         <div className="max-w-7xl mx-auto h-20 px-6 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
             <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-primary to-secondary text-white flex items-center justify-center text-lg font-bold shadow-lg">IP
@@ -25,7 +25,7 @@ export default function Home() {
           {/* Menu */}
 
           <nav className="hidden lg:flex items-center gap-10">
-          { ["Home", "Features", "About", "Pricing", "Contact", ].map((item)=> (
+            {["Home", "Features", "About", "Pricing", "Contact",].map((item) => (
               <Link key={item}
                 href={item === "Home" ? "/" : `#${item.toLowerCase()}`}
                 className="font-medium hover:text-primary transition-colors">
@@ -39,7 +39,6 @@ export default function Home() {
           <div className="flex items-center gap-3">
             <ThemeToggle />
             <Link href="/login" className="hidden md:flex px-5 py-2 rounded-xl border border-border hover:bg-muted transition">Login</Link>
-
             <Link href="/register"
               className="rounded-xl bg-primary text-primary-foreground px-6 py-2.5 font-semibold shadow-lg hover:scale-105 hover:shadow-xl transition-all" > Get Started
             </Link>
@@ -55,12 +54,12 @@ export default function Home() {
             <span className="inline-flex items-center rounded-full bg-primary/10 text-primary px-5 py-2 text-sm font-medium">
               🚀 Modern School ERP Platform
             </span>
-           <h1 className="mt-8 text-5xl lg:text-7xl font-black leading-tight"> Smart School <span className="block bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent"> Management </span > </h1>
+            <h1 className="mt-8 text-5xl lg:text-7xl font-black leading-tight"> Smart School <span className="block bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent"> Management </span > </h1>
             <p className="mt-8 text-lg text-muted-foreground leading-8 max-w-xl">
               Manage students, teachers, attendance, examinations,finance, transport, library, hostel and reports from one beautiful cloud-based dashboard.</p>
             <div className="mt-10 flex flex-wrap gap-5">
-             <Link href="/register"className="rounded-xl bg-primary px-8 py-4 text-primary-foreground font-semibold shadow-lg hover:scale-105 transition"> Start Free </Link >
-            <Link href="/login"className="rounded-xl border border-border bg-background px-8 py-4 hover:bg-muted transition"> Login </Link >
+              <Link href="/register" className="rounded-xl bg-primary px-8 py-4 text-primary-foreground font-semibold shadow-lg hover:scale-105 transition"> Start Free </Link >
+              <Link href="/login" className="rounded-xl border border-border bg-background px-8 py-4 hover:bg-muted transition"> Login </Link >
             </div>
             <div className="grid grid-cols-3 gap-6 mt-14">
               {[
@@ -84,8 +83,8 @@ export default function Home() {
             <div className="absolute -top-6 -right-6 h-32 w-32 rounded-full bg-primary/20 blur-3xl" />
             <div className="absolute -bottom-6 -left-6 h-40 w-40 rounded-full bg-secondary/20 blur-3xl" />
             <div className="relative rounded-3xl border border-border bg-card shadow-2xl overflow-hidden">
-            <Image src="/images/dashboard.png"alt="ERP Dashboard"width= { 1400 }height= { 900 }
-             priority className="w-full object-cover hover:scale-105 transition duration-700"/ >
+              <Image src="/images/dashboard.png" alt="ERP Dashboard" width={1400} height={900}
+                priority className="w-full object-cover hover:scale-105 transition duration-700" />
             </div>
           </div>
         </div>
@@ -123,8 +122,8 @@ export default function Home() {
                 className="rounded-3xl border border-border bg-card p-8 hover:-translate-y-2 hover:border-primary/40 hover:shadow-2xl transition-all duration-300"
               >
                 <h2 className="text-5xl font-black text-primary">{item.value}</h2>
-                <h3 className="mt-4 text-xl font-semibold"> { item.title }
-               </h3 > <p className="mt-2 text-muted-foreground"> { item.desc }</p >
+                <h3 className="mt-4 text-xl font-semibold"> {item.title}
+                </h3 > <p className="mt-2 text-muted-foreground"> {item.desc}</p >
               </div>
             ))}
           </div>
@@ -135,19 +134,19 @@ export default function Home() {
       <section id="features" className="py-12">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto">
-           <span className="text-primary font-semibold uppercase tracking-widest"> FEATURES </span >
-        <h2 className="mt-4 text-5xl font-bold"> Everything Your School Needs </h2 >
-           <p className="mt-6 text-lg text-muted-foreground"> Powerful modules to automate every part of your institution. </p >
+            <span className="text-primary font-semibold uppercase tracking-widest"> FEATURES </span >
+            <h2 className="mt-4 text-5xl font-bold"> Everything Your School Needs </h2 >
+            <p className="mt-6 text-lg text-muted-foreground"> Powerful modules to automate every part of your institution. </p >
           </div>
           <div className="mt-20 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        { [ { icon: "🎓", title:"Student Management", desc:"Admissions, profiles, documents and student records." },
-        { icon: "👨‍🏫", title:"Teacher Management", desc:"Manage teachers, schedules and payroll." },
-        { icon: "📅", title: "Attendance", desc: "Daily attendance with reports." },
-        { icon: "📝", title: "Online Exams", desc: "Exam scheduling and online results." },
-        { icon: "📚", title:"Library", desc:"Books, issue records and returns." },
-        { icon: "🚌", title:"Transport", desc:"Vehicle routes and tracking." },
-        { icon: "🏠", title:"Hostel", desc:"Room allocation and management." },
-        { icon: "📊", title:"Reports", desc:"Powerful analytics dashboard." }, ].map((feature) => (
+            {[{ icon: "🎓", title: "Student Management", desc: "Admissions, profiles, documents and student records." },
+            { icon: "👨‍🏫", title: "Teacher Management", desc: "Manage teachers, schedules and payroll." },
+            { icon: "📅", title: "Attendance", desc: "Daily attendance with reports." },
+            { icon: "📝", title: "Online Exams", desc: "Exam scheduling and online results." },
+            { icon: "📚", title: "Library", desc: "Books, issue records and returns." },
+            { icon: "🚌", title: "Transport", desc: "Vehicle routes and tracking." },
+            { icon: "🏠", title: "Hostel", desc: "Room allocation and management." },
+            { icon: "📊", title: "Reports", desc: "Powerful analytics dashboard." },].map((feature) => (
               <div key={feature.title}
                 className="group rounded-3xl border border-border bg-card p-8 transition-all duration-500 hover:-translate-y-3 hover:border-primary hover:shadow-2xl"
               >
@@ -171,7 +170,7 @@ export default function Home() {
 
       {/* ================= WHY CHOOSE ================= */}
 
-    <section id="about"className="py-12 bg-muted/30">
+      <section id="about" className="py-12 bg-muted/30">
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
           <div>
             <span className="text-primary font-semibold uppercase tracking-widest">
@@ -213,14 +212,14 @@ export default function Home() {
           </div>
         </div>
       </section>
-    
+
       {/* ================= CTA ================= */}
 
       <section className="py-12">
         <div className="max-w-6xl mx-auto px-6">
           <div className="rounded-[32px] bg-gradient-to-r from-primary via-secondary to-accent p-14 lg:p-20 text-center text-white shadow-2xl">
-          <h2 className="text-4xl lg:text-5xl font-bold"> Ready to Modernize Your School? </h2 >
-           <p className="mt-6 text-lg opacity-90 max-w-2xl mx-auto"> Join hundreds of schools using InizerP ERP to simplify administration and improve learning experiences. </p >
+            <h2 className="text-4xl lg:text-5xl font-bold"> Ready to Modernize Your School? </h2 >
+            <p className="mt-6 text-lg opacity-90 max-w-2xl mx-auto"> Join hundreds of schools using InizerP ERP to simplify administration and improve learning experiences. </p >
             <div className="mt-10 flex flex-wrap justify-center gap-4">
               <Link
                 href="/register"
@@ -247,8 +246,8 @@ export default function Home() {
       <section className="py-12 bg-muted/30">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center">
-           <span className="text-primary font-semibold uppercase tracking-widest"> Testimonials </span >
-           <h2 className="mt-4 text-5xl font-bold"> Trusted By Schools </h2 >
+            <span className="text-primary font-semibold uppercase tracking-widest"> Testimonials </span >
+            <h2 className="mt-4 text-5xl font-bold"> Trusted By Schools </h2 >
           </div>
           <div className="mt-16 grid md:grid-cols-3 gap-8">
             {[
@@ -271,10 +270,10 @@ export default function Home() {
                   "Excellent dashboard with all modules in one place.",
               },
             ].map((item) => (
-                <div key= { item.name }
+              <div key={item.name}
                 className="rounded-3xl border border-border bg-card p-8 hover:shadow-2xl transition">
-               <div className="text-4xl"> ⭐⭐⭐⭐⭐ </div >
-                <p className="mt-6 leading-8 text-muted-foreground"> " {item.review}"</p >
+                <div className="text-4xl"> ⭐⭐⭐⭐⭐ </div >
+                <p className="mt-6 leading-8 text-muted-foreground"> &quot;{item.review}&quot;</p >
                 <h3 className="mt-8 font-bold text-lg"> {item.name}</h3 >
                 <p className="text-primary"> {item.school} </p >
               </div>
@@ -288,7 +287,7 @@ export default function Home() {
       <section className="py-12">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center">
-           <h2 className="text-5xl font-bold"> Frequently Asked Questions </h2 >
+            <h2 className="text-5xl font-bold"> Frequently Asked Questions </h2 >
           </div>
           <div className="mt-16 space-y-6">
             {[
@@ -324,11 +323,11 @@ export default function Home() {
 
       {/* ================= CONTACT ================= */}
 
-      <section id="contact"className="py-12 bg-muted/30">
+      <section id="contact" className="py-12 bg-muted/30">
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16">
           <div>
             <h2 className="text-5xl font-bold"> Contact Us </h2 >
-            <p className="mt-6 text-lg text-muted-foreground"> We'd love to help your institution succeed.</p >
+            <p className="mt-6 text-lg text-muted-foreground"> We&apos;d love to help your institution succeed.</p >
             <div className="mt-10 space-y-6">
               <div className="rounded-2xl border bg-card p-6"> 📧 support@inizerp.com </div >
               <div className="rounded-2xl border bg-card p-6"> 📞 + 91 98765 43210 </div >
@@ -363,8 +362,8 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 py-12">
           <div className="grid md:grid-cols-4 gap-10">
             <div>
-             <h3 className="text-xl font-bold"> InizerP ERP </h3 >
-             <p className="mt-4 text-muted-foreground leading-7"> Modern School Management Platform with powerful modules for education. </p >
+              <h3 className="text-xl font-bold"> InizerP ERP </h3 >
+              <p className="mt-4 text-muted-foreground leading-7"> Modern School Management Platform with powerful modules for education. </p >
             </div>
             <div>
               <h4 className="font-semibold">Company </h4>
@@ -377,8 +376,8 @@ export default function Home() {
               </div>
             </div>
             <div>
-            <h4 className="font-semibold"> Support </h4 >
-              <div className="mt-5 space-y-3 text-muted-foreground"> FAQ <br / > Contact <br / > Help Center </div >
+              <h4 className="font-semibold"> Support </h4 >
+              <div className="mt-5 space-y-3 text-muted-foreground"> FAQ <br /> Contact <br /> Help Center </div >
             </div>
             <div>
               <h4 className="font-semibold">Newsletter</h4>

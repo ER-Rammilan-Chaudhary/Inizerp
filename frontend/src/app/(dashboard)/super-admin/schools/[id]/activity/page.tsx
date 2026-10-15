@@ -17,7 +17,6 @@ export default async function SchoolActivityPage({ params }: { params: Promise<{
           <p className="text-sm font-medium text-slate-300">Activity</p>
           <h1 className="text-2xl font-semibold text-white">Recent School Activity</h1>
         </div>
-        <Link href={`/super-admin/schools/${id}`} className="rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-sm font-medium text-white transition hover:bg-white/20">Back</Link>
       </div>
 
       <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950">

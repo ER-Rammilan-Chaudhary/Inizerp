@@ -1,26 +1,37 @@
-const BASE = "http://localhost:5000/api/auth";
+import client from "@/api/client";
+import type {
+  ApiResponse,
+  AuthUser,
+  LoginData,
+  LoginRequest,
+  RefreshData,
+} from "@/types/auth.types";
 
-//  Ragister api
-export const registerApi = async (data: any) => {
-  const res = await fetch(`${BASE}/register`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  });
+export const authApi = {
+  async login(payload: LoginRequest): Promise<LoginData> {
+    const { data } = await client.post<ApiResponse<LoginData>>(
+      "/auth/login",
+      payload,
+    );
 
-  if (!res.ok) throw new Error("Register failed");
-  return res.json();
-};
+    return data.data;
+  },
 
-// Login api
-export const loginApi = async (email: string, password: string) => {
-  const res = await fetch(`${BASE}/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    credentials: "include",
-    body: JSON.stringify({ email, password }),
-  });
+  /** Refresh token is read by the backend from the httpOnly cookie. */
+  async refresh(): Promise<RefreshData> {
+    const { data } =
+      await client.post<ApiResponse<RefreshData>>("/auth/refresh");
 
-  if (!res.ok) throw new Error("Login failed");
-  return res.json();
+    return data.data;
+  },
+
+  async me(): Promise<AuthUser> {
+    const { data } = await client.get<ApiResponse<AuthUser>>("/auth/me");
+    return data.data;
+  },
+
+  async logout(): Promise<ApiResponse<null>> {
+    const { data } = await client.post<ApiResponse<null>>("/auth/logout");
+    return data;
+  },
 };
